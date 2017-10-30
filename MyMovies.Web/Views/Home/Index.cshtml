@@ -1,0 +1,48 @@
+﻿@model MyMovies.Web.Models.Movies.MovieListViewModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>
+            Movies
+            <span class="pull-right">
+                <a href="@Url.Action("Create")" class="btn btn-danger">Create New</a>
+            </span>
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-9">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <div class="well">
+                    <div class="row ">
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.Title, new {@class = "form-control", placeholder = "Title"})
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.Director, new {@class = "form-control", placeholder = "Director"})
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(m => m.Actor, new {@class = "form-control", placeholder = "Actor"})
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(m => m.Genre, new {@class = "form-control", placeholder = "Comedy"})
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" type="submit">Find</button>
+                            <a href="@Url.Action("Index")" class="btn btn-danger">Clear</a>
+                        </div>
+                    </div>
+            </div>
+        }
+        @Html.Partial("_Grid")
+    </div>
+    <div class="col-lg-3">
+        @Html.Partial("_Years")
+        @*@Html.Partial("_Directors")*@
+    </div>
+</div>

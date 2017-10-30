@@ -1,0 +1,15 @@
+﻿@model MyMovies.Web.Models.Movies.MovieListViewModel
+
+<ul class="list-group">
+    <li class="list-group-item active">Filter by Years</li>
+    @if (Model.Years.Any())
+    {
+        foreach (var year in Model.Years)
+        {
+            <li class="list-group-item">
+                <a href="@Url.Action("Index", new { year = year.Name })">@year.Name</a> 
+                <span class="badge">@year.Count</span>
+            </li>
+        }
+    }
+</ul>

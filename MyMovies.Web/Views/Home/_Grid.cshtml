@@ -1,0 +1,54 @@
+﻿@using PagedList.Mvc
+@model MyMovies.Web.Models.Movies.MovieListViewModel
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Director
+            </th>
+            <th>
+                Actors
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @if (Model.Items == null || !Model.Items.Any())
+        {
+            <tr>
+                <td colspan="12">
+                    <p>No movies found.</p>
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var movie in Model.Items)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.Year</td>
+                    <td>@movie.Genre</td>
+                    <td>@movie.Director</td>
+                    <td>@movie.Actors</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new {movie.Id})">Edit</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete", new {movie.Id})" onclick="return confirm('Are you sure you want to delete this movie?');">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    @Html.PagedListPager(Model.Items, page => Url.Action("Index", new { Model.Title, Model.Year, Model.Genre, Model.Director, Model.Actor, page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+</div>
